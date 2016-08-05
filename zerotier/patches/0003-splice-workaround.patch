@@ -1,0 +1,28 @@
+diff --git a/node/DeferredPackets.cpp b/node/DeferredPackets.cpp
+index 192b407..d4cd743 100644
+--- a/node/DeferredPackets.cpp
++++ b/node/DeferredPackets.cpp
+@@ -64,7 +64,7 @@ bool DeferredPackets::enqueue(IncomingPacket *pkt)
+ 
+ int DeferredPackets::process()
+ {
+-	std::list<IncomingPacket> pkt;
++	// std::list<IncomingPacket> pkt;
+ 
+ 	_q_m.lock();
+ 
+@@ -86,12 +86,12 @@ int DeferredPackets::process()
+ 	}
+ 
+ 	// Move item from _q list to a dummy list here to avoid copying packet
+-	pkt.splice(pkt.end(),_q,_q.begin());
++	// pkt.splice(pkt.end(),_q,_q.begin());
+ 
+ 	_q_m.unlock();
+ 
+ 	try {
+-		pkt.front().tryDecode(RR,true);
++		_q.front().tryDecode(RR,true);
+ 	} catch ( ... ) {} // drop invalids
+ 
+ 	return 1;
